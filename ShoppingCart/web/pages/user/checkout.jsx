@@ -5,8 +5,10 @@ import Axios from "axios";
 import Router from "next/router";
 import UserNavbar from "../../components/user/UserNavbar";
 import Link from "next/link";
+import authuser from "./authuser";
 
 const checkout = () => {
+  authuser();
   const router = useRouter();
   const {
     query: { TotalItem, totalPrice, productId, productQty },
