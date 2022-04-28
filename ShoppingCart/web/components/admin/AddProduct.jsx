@@ -4,8 +4,11 @@ import Router from "next/router";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UseApi from "../../callApi/UseApi";
 
 const AddProduct = () => {
+  const { addProductUrl } = UseApi();
+
   const [category, setCategory] = useState([]);
   const [product, setProduct] = useState({
     title: "",
@@ -16,7 +19,17 @@ const AddProduct = () => {
   });
   const [image, setImage] = useState("");
   useEffect(() => {
-    Axios.get("http://localhost:8080/showCategory")
+    const saveToken = localStorage.getItem("adminjwt");
+    if (saveToken === null) {
+      alert("you are not authorized");
+      Router.push("/");
+    }
+    const headers = {
+      headers: {
+        passToken: "Bearer " + saveToken,
+      },
+    };
+    Axios.get("http://localhost:8080/showCategory", headers)
       .then((result) => {
         return result;
       })
@@ -70,11 +83,7 @@ const AddProduct = () => {
       };
 
       console.log(formData.title);
-      const res = await Axios.post(
-        "http://localhost:8080/addProduct",
-        formData,
-        headers
-      );
+      const res = await addProductUrl(formData, headers);
       if (res.data.msg === "unAuthorized") {
         alert("you are not authorized");
         Router.push("/");

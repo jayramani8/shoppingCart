@@ -2,8 +2,10 @@ import { React, useState, useEffect } from "react";
 import Axios from "axios";
 import Router from "next/router";
 import Link from "next/link";
+import UseApi from "../../callApi/UseApi";
 
 const EditProduct = (props) => {
+  const { updateProductUrl } = UseApi();
   const {
     id,
     title,
@@ -71,11 +73,7 @@ const EditProduct = (props) => {
     formData.append("image", updatedImage);
     console.log(formData.title);
 
-    const res = await Axios.put(
-      `http://localhost:8080/updateProduct/${id}`,
-      formData,
-      headers
-    );
+    const res = await updateProductUrl(headers, formData, id);
     if (res.data.msg === "unAuthorized") {
       alert("you are not authorized");
       Router.push("/");

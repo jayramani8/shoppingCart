@@ -2,8 +2,10 @@ import { React, useState } from "react";
 import Router from "next/router";
 import Axios from "axios";
 import Link from "next/link";
-
+import UseApi from "../../callApi/UseApi";
 const EditCategory = (props) => {
+  const { updateCategoryUrl } = UseApi();
+
   const [editCategory, setEditCategory] = useState(props.EditCategory);
   console.log(editCategory);
 
@@ -35,11 +37,7 @@ const EditCategory = (props) => {
     };
     console.log(categoryData);
     const id = editCategory.id;
-    const res = await Axios.put(
-      `http://localhost:8080/updateCategoty/${id}`,
-      categoryData,
-      headers
-    );
+    const res = await updateCategoryUrl(headers, categoryData, id);
     if (res.data.msg === "unAuthorized") {
       alert("you are not authorized");
       Router.push("/");

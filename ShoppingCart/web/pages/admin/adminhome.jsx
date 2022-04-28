@@ -4,8 +4,11 @@ import AdminNavbar from "../../components/admin/AdminNavbar";
 import adminAuth from "./adminAuth";
 import Router from "next/router";
 import Axios from "axios";
+import UseApi from "../../callApi/UseApi";
+
 const adminhome = () => {
   adminAuth();
+  const { fetchProductUrl } = UseApi();
   const [product, setProduct] = useState();
 
   useEffect(() => {
@@ -20,7 +23,7 @@ const adminhome = () => {
       },
     };
 
-    Axios.get("http://localhost:8080/showProduct", headers)
+    fetchProductUrl(headers)
       .then((result) => {
         return result;
       })

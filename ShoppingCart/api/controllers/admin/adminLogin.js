@@ -1,6 +1,7 @@
 const db = require("../../models");
 const admin = db.Admin;
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const Login = async (req, res) => {
   try {
@@ -12,7 +13,7 @@ const Login = async (req, res) => {
       where: { email: email, password: password },
     });
     if (result) {
-      const token = jwt.sign({ id: result.id }, "jayramanijay");
+      const token = jwt.sign({ id: result.id }, process.env.SECRET_KEY);
       res.status(200);
       return res.send({ token: token });
     } else {

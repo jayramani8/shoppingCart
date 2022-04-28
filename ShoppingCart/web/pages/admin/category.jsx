@@ -4,8 +4,11 @@ import Axios from "axios";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import Category from "../../components/admin/Category";
 import adminAuth from "./adminAuth";
+import UseApi from "../../callApi/UseApi";
+
 const category = () => {
   adminAuth();
+  const { fetchCategoryUrl } = UseApi();
   const [category, setCategory] = useState();
 
   useEffect(() => {
@@ -19,7 +22,7 @@ const category = () => {
         passToken: "Bearer " + saveToken,
       },
     };
-    Axios.get("http://localhost:8080/showCategory", headers)
+    fetchCategoryUrl(headers)
       .then((result) => {
         return result;
       })

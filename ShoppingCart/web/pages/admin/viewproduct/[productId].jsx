@@ -5,12 +5,13 @@ import ViewProduct from "../../../components/admin/ViewProduct";
 import { GetServerSideProps, GetStaticProps } from "next";
 import Axios from "axios";
 import adminAuth from "../adminAuth";
+import UseApi from "../../../callApi/UseApi";
 
 export const getServerSideProps = async ({ params }) => {
   const id = params.productId;
-  // console.log("jhgd");
+  const { viewProductUrl } = UseApi();
 
-  const result = await Axios.get(`http://localhost:8080/fetchProduct/${id}`);
+  const result = await viewProductUrl(id);
   const data = result.data;
 
   return {

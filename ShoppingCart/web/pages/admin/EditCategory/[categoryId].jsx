@@ -4,11 +4,14 @@ import Axios from "axios";
 import AdminNavbar from "../../../components/admin/AdminNavbar";
 import EditCategory from "../../../components/admin/EditCategory";
 import adminAuth from "../adminAuth";
+import UseApi from "../../../callApi/UseApi";
+
 export const getServerSideProps = async ({ params }) => {
   const id = params.categoryId;
+  const { editCategoryUrl } = UseApi();
   // console.log("jhgd");
 
-  const result = await Axios.get(`http://localhost:8080/fetchCategory/${id}`);
+  const result = await editCategoryUrl(id);
   const data = result.data;
 
   return {

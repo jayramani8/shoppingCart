@@ -9,9 +9,12 @@ import {
   faTrash,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
+import UseApi from "../../callApi/UseApi";
 
 const AdminHome = (props) => {
   if (props.productData) {
+    const { deleteProductUrl } = UseApi();
+
     const [product, setProduct] = useState(props.productData);
 
     const onDeleteHandler = async (id) => {
@@ -26,10 +29,7 @@ const AdminHome = (props) => {
         },
       };
 
-      const res = await Axios.delete(
-        `http://localhost:8080/deleteProduct/${id}`,
-        headers
-      );
+      const res = await deleteProductUrl(headers, id);
       if (res.data.msg === "unAuthorized") {
         alert("you are not authorized");
         Router.push("/");
@@ -49,7 +49,7 @@ const AdminHome = (props) => {
               <h2 className="text-2xl leading-tight">Products</h2>
               <div className="text-end">
                 <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
-                  <Link href="/admin/addproduct">
+                  <Link href="/admin/addproduct" passHref>
                     <button
                       className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
                       type="button"

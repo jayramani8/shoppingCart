@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import Axios from "axios";
+import UseApi from "../../callApi/UseApi";
 
 const adminAuth = () => {
   const homePage = async () => {
+    const { adminAuthUrl } = UseApi();
+
     const saveToken = localStorage.getItem("adminjwt");
     // console.log(saveToken);
     if (saveToken === null) {
@@ -11,12 +14,12 @@ const adminAuth = () => {
       Router.push("/");
     }
 
-    const res = await Axios.get("http://localhost:8080/adminAuth", {
+    const headers = {
       headers: {
         passToken: "Bearer " + saveToken,
       },
-      // credentials: "include",
-    });
+    };
+    const res = await adminAuthUrl(headers);
     if (res.status === 200) {
       Router.push("/admin/adminhome");
     } else {

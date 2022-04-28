@@ -1,15 +1,19 @@
 const db = require("../../models");
 const User = db.User;
+const bcrypt = require("bcrypt");
 const registerUser = async (req, res) => {
   try {
+    const hasPassword = await bcrypt.hash(req.body.password, 12);
+
+    console.log(bcryptPassword);
     const registerData = {
       username: req.body.username,
       email: req.body.email,
       mobile: req.body.mobile,
-      password: req.body.password,
+      password: hasPassword,
     };
     console.log(registerData);
-    await User.create(req.body);
+    await User.create(registerData);
     return res.status(200).json();
   } catch (err) {
     console.log(err);

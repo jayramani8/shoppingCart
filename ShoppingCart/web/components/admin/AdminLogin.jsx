@@ -5,7 +5,9 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Axios from "axios";
+import UseApi from "../../callApi/UseApi";
 const AdminLogin = () => {
+  const { adminLoginUrl } = UseApi();
   const [login, setLogin] = useState({ email: "", password: "" });
 
   const inputHandler = (event) => {
@@ -28,10 +30,7 @@ const AdminLogin = () => {
         password: login.password,
       };
       console.log(loginData);
-      const res = await Axios.post(
-        "http://localhost:8080/adminlogin",
-        loginData
-      );
+      const res = await adminLoginUrl(loginData);
       const token = res.data.token;
       console.log(res);
 

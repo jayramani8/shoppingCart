@@ -5,9 +5,12 @@ import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import UseApi from "../../callApi/UseApi";
 
 const Category = (props) => {
   if (props.categoryData) {
+    const { deleteCategoryUrl } = UseApi();
+
     const [category, setCategory] = useState(props.categoryData);
 
     const onDeleteHandler = async (id) => {
@@ -21,10 +24,7 @@ const Category = (props) => {
           passToken: "Bearer " + saveToken,
         },
       };
-      const res = await Axios.delete(
-        `http://localhost:8080/deleteCategoty/${id}`,
-        headers
-      );
+      const res = await deleteCategoryUrl(headers, id);
       if (res.data.msg === "unAuthorized") {
         alert("you are not authorized");
         Router.push("/");
