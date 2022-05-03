@@ -4,7 +4,7 @@ import Router from "next/router";
 import Link from "next/link";
 import UseApi from "../../callApi/UseApi";
 
-const EditProduct = (props) => {
+const EditProduct = (props: any) => {
   const { updateProductUrl, fetchCategoryUrl } = UseApi();
   const {
     id,

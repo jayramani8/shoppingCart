@@ -47,7 +47,7 @@ const ViewProduct = (props: any) => {
                             </a>
                           </h5>
                           <p className="price-container">
-                            <span>${price}</span>
+                            <span>₹ {price}</span>
                           </p>
                           {/* <span class="tag1"></span> */}
                         </div>

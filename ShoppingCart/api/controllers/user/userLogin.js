@@ -18,7 +18,8 @@ const userLogin = async (req, res) => {
     if (result) {
       const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
       res.status(200);
-      return res.send({ token: token, id: result.id });
+      console.log(user.id);
+      return res.send({ token: token, id: user.id });
     } else {
       return res.send({ token: "" });
     }

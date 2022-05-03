@@ -19,7 +19,7 @@ const AdminNavbar = () => {
                     <Link href="/admin/adminhome">
                       <h4
                         role="button"
-                        className="text-gray-300  hover:text-gray-800  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium"
+                        className="text-gray-300  hover:text-gray-400  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium"
                       >
                         Products
                       </h4>
@@ -27,7 +27,7 @@ const AdminNavbar = () => {
                     <Link href="/admin/category">
                       <h4
                         role="button"
-                        className="text-gray-300  hover:text-gray-800  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium"
+                        className="text-gray-300  hover:text-gray-400  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium"
                       >
                         Category
                       </h4>

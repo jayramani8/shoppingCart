@@ -19,7 +19,7 @@ const UserNavbar = () => {
                     <Link href="/user/userdashboard">
                       <h4
                         role="button"
-                        className="text-gray-300  hover:text-gray-800  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium"
+                        className="text-gray-300  hover:text-gray-400  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium"
                       >
                         Dashboard
                       </h4>
@@ -27,7 +27,7 @@ const UserNavbar = () => {
                     <Link href="/user/addTocart">
                       <span
                         role="button"
-                        className="text-gray-300  hover:text-gray-800  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium d-flex "
+                        className="text-gray-300  hover:text-gray-400  dark:hover:text-white px-3 py-2 rounded-md text-medium font-medium d-flex "
                       >
                         <span className="mr-1">
                           <FontAwesomeIcon
@@ -35,7 +35,7 @@ const UserNavbar = () => {
                             color="white"
                             fontSize="25px"
                             cursor="pointer"
-                            className="text-gray-300  hover:text-gray-800  dark:hover:text-white  rounded-md text-medium font-medium"
+                            className="text-gray-300  hover:text-gray-400  dark:hover:text-white  rounded-md text-medium font-medium"
                           />
                         </span>
                       </span>
