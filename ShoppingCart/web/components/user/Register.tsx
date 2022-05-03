@@ -1,63 +1,51 @@
 import React, { useState } from "react";
-import Router from "next/router";
 import Link from "next/link";
+import Axios from "axios";
+import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import UseApi from "../../callApi/UseApi";
-const AddCategory = () => {
-  const { addCategoryUrl } = UseApi();
+const Register = () => {
+  const { userRegisterUrl } = UseApi();
 
-  const [addCategory, setAddCategory] = useState({
-    title: "",
-    Description: "",
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    mobile: "",
+    password: "",
   });
 
-  const inputHandler = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const value = e.target.value;
-    setAddCategory({
-      ...addCategory,
-      [e.target.name]: value,
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setUserData({
+      ...userData,
+      [event.target.name]: value,
     });
   };
+  //   console.log(userData);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (addCategory.title.trim() === "") {
-      toast("title is empty");
-    } else if (addCategory.Description === "") {
-      toast("Description is empty");
+    if (userData.username.trim() === "") {
+      toast("username is empty");
+    } else if (userData.email.trim() === "") {
+      toast("email is empty");
+    } else if (userData.mobile === "") {
+      toast("mobile is empty");
+    } else if (userData.password.trim() === "") {
+      toast("password is empty");
     } else {
-      const categoryData = {
-        title: addCategory.title,
-        Description: addCategory.Description,
+      const registerData = {
+        username: userData.username,
+        email: userData.email,
+        mobile: userData.mobile,
+        password: userData.password,
       };
-      console.log(categoryData);
-
-      const saveToken = localStorage.getItem("adminjwt");
-      if (saveToken === null) {
-        alert("you are not authorized");
-        Router.push("/");
-      }
-
-      const headers = {
-        headers: {
-          passToken: "Bearer " + saveToken,
-        },
-      };
-
-      const res = await addCategoryUrl(categoryData, headers);
-      if (res.data.msg === "unAuthorized") {
-        alert("you are not authorized");
-        Router.push("/");
-      }
+      console.log(registerData);
+      const res = await userRegisterUrl(registerData);
       if (res.status === 200) {
-        alert("Category Created");
-        Router.push("/admin/category");
+        alert("User Created");
+        Router.push("/user/login");
       }
     }
   };
@@ -75,27 +63,43 @@ const AddCategory = () => {
                 <div className="card border border-dark">
                   <div className="card-body p-5">
                     <h2 className="text-uppercase text-center mb-5">
-                      Add Category
+                      User Registration
                     </h2>
 
                     <form method="post">
                       <div className="form-outline mb-4">
-                        <label className="form-label">Title</label>
+                        <label className="form-label">Username</label>
                         <input
                           type="text"
-                          name="title"
-                          placeholder="Enter Title"
+                          name="username"
+                          onChange={inputHandler}
+                          className="form-control form-control-lg border border-dark"
+                        />
+                      </div>
+                      <div className="form-outline mb-4">
+                        <label className="form-label">Email</label>
+                        <input
+                          type="email"
+                          name="email"
+                          onChange={inputHandler}
+                          className="form-control form-control-lg border border-dark"
+                        />
+                      </div>
+                      <div className="form-outline mb-4">
+                        <label className="form-label">Mobile</label>
+                        <input
+                          type="number"
+                          name="mobile"
                           onChange={inputHandler}
                           className="form-control form-control-lg border border-dark"
                         />
                       </div>
 
                       <div className="form-outline mb-4">
-                        <label className="form-label">Description</label>
-                        <textarea
-                          //   type="password"
-                          placeholder="Enter Description"
-                          name="Description"
+                        <label className="form-label">Password</label>
+                        <input
+                          type="password"
+                          name="password"
                           onChange={inputHandler}
                           className="form-control form-control-lg border border-dark"
                         />
@@ -106,18 +110,8 @@ const AddCategory = () => {
                           className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                           onClick={submitHandler}
                         >
-                          Add Category
+                          Register
                         </button>
-                      </div>
-                      <div className="d-flex justify-content-center mt-2">
-                        <Link href="/admin/category" passHref>
-                          <button
-                            type="submit"
-                            className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                          >
-                            Back
-                          </button>
-                        </Link>
                       </div>
                     </form>
                   </div>
@@ -131,4 +125,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default Register;

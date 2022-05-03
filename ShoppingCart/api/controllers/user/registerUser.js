@@ -5,7 +5,7 @@ const registerUser = async (req, res) => {
   try {
     const hasPassword = await bcrypt.hash(req.body.password, 12);
 
-    console.log(bcryptPassword);
+    console.log(req.body);
     const registerData = {
       username: req.body.username,
       email: req.body.email,
